@@ -1,13 +1,11 @@
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-
 import 'package:myfoodcart/resources/color_resource.dart';
 import 'package:myfoodcart/resources/decorations.dart';
 import 'package:myfoodcart/resources/drawable_resources.dart';
 import 'package:myfoodcart/resources/style_resources.dart';
 import 'package:myfoodcart/utils/utils.dart';
-
 import 'delivery_point.dart';
 
 
