@@ -7,6 +7,7 @@ import 'package:myfoodcart/resources/drawable_resources.dart';
 import 'package:myfoodcart/resources/style_resources.dart';
 import 'package:myfoodcart/utils/utils.dart';
 import 'delivery_point.dart';
+import 'itwm_list_screen.dart';
 
 
 
@@ -194,6 +195,10 @@ class _HomePageState extends State<HomePage> {
                 child: Text("Products",style: StyleResource.headBold(context, 18),),
               ),
               _renderTabBar(),
+              Container(width: MediaQuery.of(context).size.width,
+                height: 200,
+                  child: ItemListScreen())
+
 
 
 
