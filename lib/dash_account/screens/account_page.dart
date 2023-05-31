@@ -1,6 +1,9 @@
 import 'package:easy_stepper/easy_stepper.dart';
+import 'package:myfoodcart/onboarding_screens/screens/login_screen.dart';
 import 'package:myfoodcart/resources/drawable_resources.dart';
 import 'package:myfoodcart/resources/style_resources.dart';
+import 'package:myfoodcart/utils/shared_utils.dart';
+import 'package:myfoodcart/utils/utils.dart';
 
 import '../../resources/color_resource.dart';
 import '../../resources/decorations.dart';
@@ -13,6 +16,16 @@ class AccountPage extends StatefulWidget {
 }
 
 class _AccountPageState extends State<AccountPage> {
+  // Usage example
+  void logout() async {
+    // Perform any other logout-related tasks here
+
+    // Clear shared preferences values
+    await SharedUtils.clearSharedPreferences();
+    Utils.navigateAndReplace(context, LoginScreen());
+
+    // Navigate to login screen or any other desired screen
+  }
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -76,7 +89,13 @@ class _AccountPageState extends State<AccountPage> {
               SizedBox(height: 20,),
               Decorations.accountCards(context, "Rate us on playstore"),
               SizedBox(height: 20,),
-              Decorations.accountCards(context, "Logout"),
+              InkWell(
+                onTap: (){
+                  logout();
+
+                },
+                child: Decorations.accountCards(context, "Logout"),
+              )
             ],
           ),
         ),

@@ -32,4 +32,8 @@ class SharedUtils {
     sharedPreferences = await SharedPreferences.getInstance();
     return (sharedPreferences.getInt(key) ?? 0);
   }
+ static clearSharedPreferences() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    await prefs.clear();
+  }
 }

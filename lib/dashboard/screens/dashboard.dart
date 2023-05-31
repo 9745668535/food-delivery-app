@@ -30,9 +30,8 @@ class _DashBoardState extends State<DashBoard> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-
       body: _pages[_currentIndex],
-      bottomNavigationBar: BottomNavigationBar(showUnselectedLabels: false,
+      bottomNavigationBar:   BottomNavigationBar(showUnselectedLabels: false,
         showSelectedLabels: false,
         type: BottomNavigationBarType.fixed,
         iconSize: 28,

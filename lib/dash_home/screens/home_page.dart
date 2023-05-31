@@ -6,6 +6,7 @@ import 'package:myfoodcart/resources/decorations.dart';
 import 'package:myfoodcart/resources/drawable_resources.dart';
 import 'package:myfoodcart/resources/style_resources.dart';
 import 'package:myfoodcart/utils/utils.dart';
+import '../../dash_cart/screens/cart_page.dart';
 import 'delivery_point.dart';
 import 'item_screen.dart';
 
@@ -18,16 +19,49 @@ class HomePage extends StatefulWidget {
 
 class _HomePageState extends State<HomePage> {
   final List<String> images = [
-    DrawableResource.splash,
-    DrawableResource.splash,
-    DrawableResource.splash,
+
+    DrawableResource.food2,
+    DrawableResource.food4,
+
   ];
   @override
   Widget build(BuildContext context) {
     return SafeArea(
       child: Scaffold(
+        floatingActionButton: Padding(
+          padding: const EdgeInsets.only(left: 3.0,right: 3),
+          child: Container(
+            height: 40,
+            width: MediaQuery.of(context).size.width,
+            decoration: BoxDecoration(
+              borderRadius: BorderRadius.circular(10),
+              color: ColorResource.appBackgroundColor
+            ),
+            child: Padding(
+              padding: const EdgeInsets.only(left: 8.0,right: 15),
+              child: Row(mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                Column(crossAxisAlignment: CrossAxisAlignment.start,
+                  mainAxisAlignment: MainAxisAlignment.center,
+
+                  children: [
+                    Text("1 ITEM",style: StyleResource.normalBlack(context, 10).copyWith(color: Colors.white),),
+                    Text("e3.99 plus taxes",style: StyleResource.normalBlack(context, 7).copyWith(color: Colors.white),)
+
+                  ],
+                ),
+                  InkWell(onTap: (){
+                    Utils.navigateTo(context, CartPage());
+                  },
+                      child: Text("Proceed",style: StyleResource.normalBlack(context, 10).copyWith(color: Colors.white),)),
+              ],),
+            ),
+          ),
+        ),
+        floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
         body: SingleChildScrollView(
           child: Column(
+
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               SizedBox(
@@ -142,7 +176,7 @@ class _HomePageState extends State<HomePage> {
                               topLeft: Radius.circular(15),
                               topRight: Radius.circular(15)),
                           child: Image.asset(
-                            DrawableResource.splash,
+                            DrawableResource.food1,
                             fit: BoxFit.cover,
                             width: double.infinity,
                             height: double.infinity,
@@ -218,9 +252,11 @@ class _HomePageState extends State<HomePage> {
                       )
                     ],
                   )),
+
               SizedBox(
                 height: 10,
               ),
+
               Padding(
                 padding: const EdgeInsets.all(8.0),
                 child: Text(
@@ -228,36 +264,17 @@ class _HomePageState extends State<HomePage> {
                   style: StyleResource.headBold(context, 18),
                 ),
               ),
+
               SizedBox(
                 height: 10,
               ),
+
               _renderSlider(),
+
               SizedBox(
                 height: 10,
               ),
-              Padding(
-                padding: const EdgeInsets.all(8.0),
-                child: Container(
-                  height: MediaQuery.of(context).size.height / 8,
-                  width: MediaQuery.of(context).size.width,
-                  decoration: BoxDecoration(boxShadow: [
-                    BoxShadow(
-                      spreadRadius: 2,
-                      color: ColorResource.appBackgroundColor.withOpacity(0.05),
-                      blurRadius: 7,
-                    ),
-                  ], borderRadius: BorderRadius.circular(15)),
-                  child: ClipRRect(
-                    borderRadius: BorderRadius.circular(15),
-                    child: Image.asset(
-                      DrawableResource.splash,
-                      fit: BoxFit.cover,
-                      width: double.infinity,
-                      height: double.infinity,
-                    ),
-                  ),
-                ),
-              ),
+
               Padding(
                 padding: const EdgeInsets.all(8.0),
                 child: Text(
@@ -265,13 +282,23 @@ class _HomePageState extends State<HomePage> {
                   style: StyleResource.headBold(context, 18),
                 ),
               ),
+
               _renderTabBar(),
+
               Padding(
                 padding: const EdgeInsets.all(8.0),
                 child: Container(
                     width: MediaQuery.of(context).size.width,
                     height: 30,
                     child: ItemListScreen()),
+              ),
+
+              Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: Container(
+                    width: MediaQuery.of(context).size.width,
+                    height: MediaQuery.of(context).size.height/3,
+                    child: Items()),
               )
             ],
           ),
@@ -284,7 +311,7 @@ class _HomePageState extends State<HomePage> {
     return CarouselSlider(
       options: CarouselOptions(
         autoPlay: true,
-        aspectRatio: 8 / 2,
+        aspectRatio: 7 / 2,
         enlargeCenterPage: false,
       ),
       items: images.map((image) {

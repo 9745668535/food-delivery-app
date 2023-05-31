@@ -11,14 +11,16 @@ import 'package:otp_text_field/otp_field.dart';
 import 'package:otp_text_field/otp_field_style.dart';
 import 'package:otp_text_field/style.dart';
 
-class OtpScreen extends StatefulWidget {
-  const OtpScreen({Key? key}) : super(key: key);
+import 'driverdashboard.dart';
+
+class DriverOtpScreen extends StatefulWidget {
+  const DriverOtpScreen({Key? key}) : super(key: key);
 
   @override
-  State<OtpScreen> createState() => _OtpScreenState();
+  State<DriverOtpScreen> createState() => _DriverOtpScreenState();
 }
 
-class _OtpScreenState extends State<OtpScreen> {
+class _DriverOtpScreenState extends State<DriverOtpScreen> {
   String _code = "";
   @override
   Widget build(BuildContext context) {
@@ -53,8 +55,8 @@ class _OtpScreenState extends State<OtpScreen> {
                     enabledBorderColor: Colors.white,
                     disabledBorderColor: Colors.white,
                     focusBorderColor: Colors.white,
-                  borderColor: Colors.white,
-                  backgroundColor: Colors.white),
+                    borderColor: Colors.white,
+                    backgroundColor: Colors.white),
                 obscureText: false,
                 length: 4,
                 width: 275,
@@ -85,19 +87,19 @@ class _OtpScreenState extends State<OtpScreen> {
               Padding(
                 padding: const EdgeInsets.all(8.0),
                 child: TextButton(
-                style: TextButton.styleFrom(
-                backgroundColor: ColorResource.appBackgroundColor,
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(10),
-                  ),
-                  minimumSize: Size( MediaQuery.of(context).size.width/1,40),
-                ),
-        child:Text("Continue",style: TextStyle(color: Colors.white),),
-        onPressed: (){
-                  Utils.navigateTo(context, SignUp());
+                    style: TextButton.styleFrom(
+                      backgroundColor: ColorResource.appBackgroundColor,
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(10),
+                      ),
+                      minimumSize: Size( MediaQuery.of(context).size.width/1,40),
+                    ),
+                    child:Text("Continue",style: TextStyle(color: Colors.white),),
+                    onPressed: (){
+                      Utils.navigateTo(context, DriverDashBoard());
 
-        }
-      ),
+                    }
+                ),
               )
 
 
@@ -118,7 +120,7 @@ class _OtpScreenState extends State<OtpScreen> {
 
   _renderContinueButton(){
     return CommonButton(child: Text("Continue",style: TextStyle(color: Colors.white),),onPressed: (){
-      Utils.navigateTo(context, SignUp());
+      Utils.navigateTo(context, DriverDashBoard());
     },color: ColorResource.appBackgroundColor,);
   }
 }

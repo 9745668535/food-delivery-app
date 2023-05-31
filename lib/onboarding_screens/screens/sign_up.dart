@@ -1,11 +1,15 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:myfoodcart/onboarding_screens/model/AddUserModel.dart';
+import 'package:myfoodcart/onboarding_screens/screens/login_screen.dart';
 import 'package:myfoodcart/resources/color_resource.dart';
 import 'package:myfoodcart/resources/style_resources.dart';
+import 'package:provider/provider.dart';
 
 import '../../dashboard/screens/dashboard.dart';
 import '../../resources/drawable_resources.dart';
 import '../../utils/utils.dart';
+import '../provider/login_provider.dart';
 
 class SignUp extends StatefulWidget {
   const SignUp({Key? key}) : super(key: key);
@@ -15,6 +19,29 @@ class SignUp extends StatefulWidget {
 }
 
 class _SignUpState extends State<SignUp> {
+  TextEditingController nameController = TextEditingController();
+  TextEditingController emailController = TextEditingController();
+  TextEditingController zipController = TextEditingController();
+  TextEditingController phoneController = TextEditingController();
+  @override
+  void dispose() {
+    nameController.dispose();
+    emailController.dispose();
+    zipController.dispose();
+    phoneController.dispose();
+    super.dispose();
+  }
+  bool isValidEmail(String value) {
+    // Regular expression for email validation
+    final RegExp emailRegex =
+    RegExp(r'^[\w-]+(\.[\w-]+)*@[a-zA-Z0-9-]+(\.[a-zA-Z0-9-]+)*(\.[a-zA-Z]{2,})$');
+    return emailRegex.hasMatch(value);
+  }
+  bool isValidPhoneNumber(String value) {
+    // Regular expression for phone number validation
+    final RegExp phoneRegex = RegExp(r'^\d{10}$');
+    return phoneRegex.hasMatch(value);
+  }
   @override
   Widget build(BuildContext context) {
     var h = MediaQuery.of(context).size.height;
@@ -60,7 +87,7 @@ class _SignUpState extends State<SignUp> {
                 SizedBox(height: 10,),
                 Padding(
                   padding: const EdgeInsets.only(left: 15.0,right: 15),
-                  child: TextFormField(
+                  child: TextFormField(controller: nameController,
                     keyboardType: TextInputType.emailAddress,
                     decoration: InputDecoration(focusedBorder:UnderlineInputBorder(
                       borderSide: BorderSide(color: Colors.black),
@@ -82,32 +109,40 @@ class _SignUpState extends State<SignUp> {
                 ),
                 SizedBox(height: 10,),
                 Padding(
-                  padding: const EdgeInsets.only(left: 15.0,right: 15),
+                  padding: const EdgeInsets.only(left: 15.0, right: 15),
                   child: TextFormField(
+                    controller: emailController,
                     keyboardType: TextInputType.emailAddress,
                     decoration: InputDecoration(
-                        focusedBorder:UnderlineInputBorder(
-                      borderSide: BorderSide(color: Colors.black),
-                    ) ,
-                        enabledBorder: UnderlineInputBorder(
-                          borderSide: BorderSide(
-                              color: Colors.black),
-                        ),
-                        border: UnderlineInputBorder(
-                          borderSide: BorderSide(color: Colors.black),
-                        ),
-
-                        hintText: 'Email',
-                        labelText: 'user123@gmail.com',
-                        labelStyle: StyleResource.greyHead(context, 19),
-                        hintStyle: StyleResource.headBlack(context, 18).copyWith(fontWeight: FontWeight.w400,)
+                      focusedBorder: UnderlineInputBorder(
+                        borderSide: BorderSide(color: Colors.black),
+                      ),
+                      enabledBorder: UnderlineInputBorder(
+                        borderSide: BorderSide(color: Colors.black),
+                      ),
+                      border: UnderlineInputBorder(
+                        borderSide: BorderSide(color: Colors.black),
+                      ),
+                      hintText: 'Email',
+                      labelText: 'user123@gmail.com',
+                      labelStyle: StyleResource.greyHead(context, 19),
+                      hintStyle: StyleResource.headBlack(context, 18).copyWith(fontWeight: FontWeight.w400,),
                     ),
+                    validator: (value) {
+                      if (value!.isEmpty) {
+                        return 'Please enter an email address';
+                      } else if (!isValidEmail(value)) {
+                        Utils.showInSnackBar("Please enter vaild email id", context);
+                      }
+                      return null; // Return null if the input is valid
+                    },
                   ),
                 ),
+
                 SizedBox(height: 10,),
                 Padding(
                   padding: const EdgeInsets.only(left: 15.0,right: 15),
-                  child: TextFormField(
+                  child: TextFormField(controller: zipController,
                     keyboardType: TextInputType.emailAddress,
                     decoration: InputDecoration(focusedBorder:UnderlineInputBorder(
                       borderSide: BorderSide(color: Colors.black),
@@ -127,6 +162,38 @@ class _SignUpState extends State<SignUp> {
                     ),
                   ),
                 ),
+                SizedBox(height: 10,),
+                Padding(
+                  padding: const EdgeInsets.only(left: 15.0, right: 15),
+                  child: TextFormField(
+                    controller: phoneController,
+                    keyboardType: TextInputType.phone,
+                    decoration: InputDecoration(
+                      focusedBorder: UnderlineInputBorder(
+                        borderSide: BorderSide(color: Colors.black),
+                      ),
+                      enabledBorder: UnderlineInputBorder(
+                        borderSide: BorderSide(color: Colors.black),
+                      ),
+                      border: UnderlineInputBorder(
+                        borderSide: BorderSide(color: Colors.black),
+                      ),
+                      hintText: 'Phone Number',
+                      labelText: 'Phone Number',
+                      labelStyle: StyleResource.greyHead(context, 19),
+                      hintStyle: StyleResource.headBlack(context, 18).copyWith(fontWeight: FontWeight.w400,),
+                    ),
+                    validator: (value) {
+                      if (value!.isEmpty) {
+                        return 'Please enter a phone number';
+                      } else if (!isValidPhoneNumber(value)) {
+                        return 'Please enter a valid phone number';
+                      }
+                      return null; // Return null if the input is valid
+                    },
+                  ),
+                ),
+
                 SizedBox(height: 10,),
                 Padding(
                   padding: const EdgeInsets.only(left: 15.0,right: 15),
@@ -177,11 +244,42 @@ class _SignUpState extends State<SignUp> {
                       ),
                       child:Text("Login",style: TextStyle(color: Colors.white),),
                       onPressed: (){
-                        Utils.navigateTo(context, DashBoard());
+                        if(nameController.text.isNotEmpty &&zipController.text.isNotEmpty && emailController.text.isNotEmpty && phoneController.text.isNotEmpty){
+                          AddUserModel addusermodel = new AddUserModel();
+                          addusermodel.firstname = nameController.text;
+                          addusermodel.lastname = "thomas ";
+                          addusermodel.address = " werr";
+                          addusermodel.zipcode = zipController.text;;
+                          addusermodel.email = emailController.text;
+                          addusermodel.mobileno = phoneController.text;
+                          addusermodel.altMobileno = "1234567890";
+                          addusermodel.pwrd = " ";
+                          addusermodel.role = "U";
+                          context.read<LoginViewModel>().addUser(context, addusermodel);
+                        }
+                        else{
+                          Utils.showInSnackBar("Please enter all the feilds", context);
+                        }
+
+
 
                       }
                   ),
-                )
+                ),
+                SizedBox(height: 10,),
+                InkWell(
+                  onTap: (){
+                    Utils.navigateTo(context, LoginScreen());
+                  },
+                  child: Padding(
+                    padding: const EdgeInsets.only(right: 17.0),
+                    child: Row(mainAxisAlignment: MainAxisAlignment.end,
+                      children: [
+                        Text("Log In",style: StyleResource.headBlack(context, 14),),
+                      ],
+                    ),
+                  ),
+                ),
               ],
             ),
 

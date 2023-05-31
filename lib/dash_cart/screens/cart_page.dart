@@ -19,7 +19,8 @@ class CartPage extends StatefulWidget {
 class _CartPageState extends State<CartPage> {
   @override
   Widget build(BuildContext context) {
-    return Scaffold(floatingActionButton:   InkWell(
+    return Scaffold(
+      floatingActionButton:   InkWell(
       onTap: (){
         Utils.navigateTo(context, PaymentScreens());
       },

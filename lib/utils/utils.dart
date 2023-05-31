@@ -21,10 +21,24 @@ class Utils {
 
 
 
-
+  static hideProgress(BuildContext context) {
+    Navigator.of(context, rootNavigator: true).pop();
+  }
 
   static navigateTo(BuildContext context, Widget widget) {
     Navigator.push(context, MaterialPageRoute(builder: (context) => widget));
+  }
+
+  static showInSnackBar(String value, BuildContext context) {
+    ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+        behavior: SnackBarBehavior.floating,
+        elevation: 6,
+        margin: EdgeInsets.all(10),
+        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),
+        content: Text(
+          value,
+          style: StyleResource.headBlack(context, 14).copyWith(color: Colors.white),
+        )));
   }
 
   static navigateAndClearAll(BuildContext context, Widget widget) {
@@ -63,6 +77,16 @@ class Utils {
     } else {
       return false;
     }
+  }
+  static showProgress(BuildContext context) {
+    showDialog(
+        context: context,
+        barrierDismissible: false,
+        builder: (BuildContext context) {
+          return Center(
+            child: CircularProgressIndicator(color: ColorResource.orangeButtton,)
+          );
+        });
   }
 
   static isValidGstIn(String value) {

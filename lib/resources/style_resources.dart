@@ -81,5 +81,14 @@ class StyleResource {
 
     );
   }
+  static TextStyle BoldOrange(BuildContext context, double size) {
+    return TextStyle(
+      fontFamily: fontFamily,
+      color: ColorResource.appBackgroundColor,
+      fontWeight: FontWeight.bold,
+      fontSize: size,
+
+    );
+  }
 
 }

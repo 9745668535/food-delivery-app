@@ -1,34 +1,23 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:myfoodcart/dash_home/provider/getItemsProvider.dart';
-
-import 'package:myfoodcart/driver/login_screen.dart';
 import 'package:myfoodcart/onboarding_screens/screens/otp_screen.dart';
-import 'package:myfoodcart/onboarding_screens/screens/sign_up.dart';
 import 'package:myfoodcart/resources/color_resource.dart';
 import 'package:myfoodcart/resources/string_resources.dart';
 import 'package:myfoodcart/resources/style_resources.dart';
 import 'package:myfoodcart/utils/utils.dart';
-import 'package:provider/provider.dart';
 
 import '../../resources/buttons.dart';
 import '../../resources/drawable_resources.dart';
-import '../provider/login_provider.dart';
+import 'otp_screen.dart';
 
-class LoginScreen extends StatefulWidget {
-  const LoginScreen({Key? key}) : super(key: key);
+class DriverLoginScreen extends StatefulWidget {
+  const DriverLoginScreen({Key? key}) : super(key: key);
 
   @override
-  State<LoginScreen> createState() => _LoginScreenState();
+  State<DriverLoginScreen> createState() => _DriverLoginScreenState();
 }
 
-class _LoginScreenState extends State<LoginScreen> {
-  bool isValidPhoneNumber(String value) {
-    // Regular expression for phone number validation
-    final RegExp phoneRegex = RegExp(r'^\d{10}$');
-    return phoneRegex.hasMatch(value);
-  }
-  TextEditingController mobileNumber = TextEditingController();
+class _DriverLoginScreenState extends State<DriverLoginScreen> {
   @override
   Widget build(BuildContext context) {
     var height = MediaQuery.of(context).size.height;
@@ -53,16 +42,7 @@ class _LoginScreenState extends State<LoginScreen> {
         child: Column(
 
           children: [
-            Row(mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                Text("Login as merchant",style: StyleResource.headWithUnderline(context,12),),
-                SizedBox(width: 10,),
-                InkWell(onTap: (){
-                  Utils.navigateTo(context, DriverLoginScreen());
-                },
-                    child: Text("Login as driver",style: StyleResource.headWithUnderline(context,12),)),
-              ],
-            ),
+
             _renderSizedBox(20),
             Column(
               children: [
@@ -107,7 +87,7 @@ class _LoginScreenState extends State<LoginScreen> {
   _renderLogin(){
     return Column(crossAxisAlignment: CrossAxisAlignment.center,
       children: [
-        Text(StringResource.loginText,style: StyleResource.loginHead(context, 14).copyWith(fontWeight: FontWeight.w500),),
+        Text("Driver Log in",style: StyleResource.loginHead(context, 14).copyWith(fontWeight: FontWeight.w500),),
         Padding(
           padding: const EdgeInsets.only(left: 20.0,right: 20,bottom: 10,top: 20),
           child: Container(
@@ -125,56 +105,22 @@ class _LoginScreenState extends State<LoginScreen> {
               ],
             ),
             child: TextFormField(
-              validator: (value) {
-                if (value!.isEmpty) {
-                  return 'Please enter a phone number';
-                } else if (!isValidPhoneNumber(value)) {
-                  return 'Please enter a valid phone number';
-                }
-                return null;
-              },
-              keyboardType: TextInputType.phone,
-              controller: mobileNumber,
               decoration: InputDecoration(border: InputBorder.none,
-                hintText: 'Enter Phone Number',
+                hintText: 'Enter Username',
                 contentPadding: EdgeInsets.symmetric(horizontal: MediaQuery.of(context).size.width/3.5),
                 hintStyle: StyleResource.loginHead(context, 14).copyWith(fontWeight: FontWeight.w500),
               ),
-            
+
             ),
           ),
         ),
         Padding(
           padding: const EdgeInsets.all(20.0),
-          child: CommonButton(color: ColorResource.appBackgroundColor,child: Text("Continue",style: TextStyle(color: Colors.white),),
-            onPressed: (){if(mobileNumber.text.isNotEmpty){
-              context.read<LoginViewModel>().validateLogin(context, mobileNumber.text);
-              // context.read<GetItemsProvider>().getItems(context);
-              // context.read<GetItemsProvider>().getItemsList(context);
-              context.read<GetItemsProvider>().updateRole("1012","C");
-            }
-            else{
-              Utils.showInSnackBar("Please enter the mobile Number to login", context);
-            }
-
-
-
+          child: CommonButton(color: ColorResource.appBackgroundColor,child: Text("Continue",style: TextStyle(color: Colors.white),),onPressed: (){
+            Utils.navigateTo(context, DriverOtpScreen());
           },),
         ),
-
-        InkWell(
-          onTap: (){
-            Utils.navigateTo(context, SignUp());
-          },
-          child: Padding(
-            padding: const EdgeInsets.only(right: 17.0),
-            child: Row(mainAxisAlignment: MainAxisAlignment.end,
-              children: [
-                Text("Sign In",style: StyleResource.headBlack(context, 14),),
-              ],
-            ),
-          ),
-        ),
+        _renderSizedBox(20),
         Text("Or",style: StyleResource.loginHead(context, 14).copyWith(fontWeight: FontWeight.w500),),
         _renderSizedBox(20),
         Row(mainAxisAlignment: MainAxisAlignment.center,
@@ -198,5 +144,5 @@ class _LoginScreenState extends State<LoginScreen> {
     );
   }
 
-  
+
 }

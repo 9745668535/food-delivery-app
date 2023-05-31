@@ -1,11 +1,15 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:myfoodcart/dashboard/screens/dashboard.dart';
 import 'package:myfoodcart/onboarding_screens/screens/login_screen.dart';
 import 'package:myfoodcart/resources/color_resource.dart';
 import 'package:myfoodcart/resources/drawable_resources.dart';
 import 'package:myfoodcart/resources/string_resources.dart';
 import 'package:myfoodcart/resources/style_resources.dart';
 import 'package:myfoodcart/utils/utils.dart';
+
+import '../../constants/constants.dart';
+import '../../utils/shared_utils.dart';
 
 class SplashScreen extends StatefulWidget {
   const SplashScreen({Key? key}) : super(key: key);
@@ -22,9 +26,17 @@ class _SplashScreenState extends State<SplashScreen> {
     return Scaffold(
       backgroundColor: Colors.black.withOpacity(.8),
         body:_renderBody(height, width),
-      floatingActionButton:  InkWell(
-        onTap: (){
-          Utils.navigateTo(context, LoginScreen());
+      floatingActionButton:  InkWell(splashColor: Colors.white,
+        onTap: ()async{
+          // int isLoggedIn =
+          //     await SharedUtils.getInt(Constants.shopid);
+          // if(isLoggedIn.toString().isNotEmpty){
+          //   Utils.navigateTo(context, DashBoard());
+          // }
+          // else{
+            Utils.navigateTo(context, LoginScreen());
+          // }
+
         },
         child: Padding(
           padding: const EdgeInsets.only(left: 0.0,right: 20,bottom: 30),
