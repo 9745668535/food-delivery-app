@@ -30,7 +30,7 @@ class LoginResponse {
     "msg": msg,
   };
   static saveClient(LoginResponse loginResponse) async {
-    await SharedUtils.setInt(Constants.shopid, loginResponse.shopId!);
+    await SharedUtils.setString(Constants.shopid, loginResponse.shopId!.toString());
 
   }
 }

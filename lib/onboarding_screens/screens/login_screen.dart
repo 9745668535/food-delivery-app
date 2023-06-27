@@ -150,7 +150,7 @@ class _LoginScreenState extends State<LoginScreen> {
             onPressed: (){if(mobileNumber.text.isNotEmpty){
               context.read<LoginViewModel>().validateLogin(context, mobileNumber.text);
               // context.read<GetItemsProvider>().getItems(context);
-              // context.read<GetItemsProvider>().getItemsList(context);
+
               context.read<GetItemsProvider>().updateRole("1012","C");
             }
             else{

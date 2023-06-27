@@ -3,7 +3,9 @@ import 'package:myfoodcart/onboarding_screens/model/AddUserModel.dart';
 import 'package:myfoodcart/onboarding_screens/model/login_model.dart';
 import 'package:myfoodcart/onboarding_screens/screens/sign_up.dart';
 import 'package:myfoodcart/utils/utils.dart';
+import 'package:provider/provider.dart';
 
+import '../../dash_home/provider/getItemsProvider.dart';
 import '../../dashboard/screens/dashboard.dart';
 import '../../onboarding_screens/services/login_services.dart';
 
@@ -22,6 +24,7 @@ class LoginViewModel extends ChangeNotifier{
         LoginResponse.saveClient(result);
         if(result.status=="Success"&&result.msg!="No merchant found"){
           Utils.navigateTo(context, DashBoard());
+          context.read<GetItemsProvider>().getItemsList(context);
         }
         if(result.status=="Success"&&result.msg=="No merchant found"){
           Utils.showInSnackBar("No Merchant Found", context);
@@ -34,7 +37,6 @@ class LoginViewModel extends ChangeNotifier{
         if(result.status=="Error"){
           Utils.showInSnackBar(result.msg.toString(), context);
            Utils.navigateTo(context, DashBoard());
-
         }
 
 

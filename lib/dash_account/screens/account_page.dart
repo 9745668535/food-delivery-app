@@ -24,7 +24,7 @@ class _AccountPageState extends State<AccountPage> {
     await SharedUtils.clearSharedPreferences();
     Utils.navigateAndReplace(context, LoginScreen());
 
-    // Navigate to login screen or any other desired screen
+
   }
   @override
   Widget build(BuildContext context) {

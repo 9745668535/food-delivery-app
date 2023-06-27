@@ -1,61 +1,62 @@
-class GetItems {
-  int? shopId;
-  int? seqId;
-  String? shopName;
-  String? shopZipcode;
-  String? itemCode;
-  String? itemName;
-  String? itemDesc;
-  String? itemCategory;
-  String? itemSubCategory;
-  String? imageLoc;
-  String? stockStatus;
-  double? itemPrice;
+class ShopItem {
+  final int shopId;
+  final int seqId;
+  final String shopName;
+  final String shopZipcode;
+  final String itemCode;
+  final String itemName;
+  final String itemDesc;
+  final String itemCategory;
+  final String itemSubCategory;
+  final String imageLoc;
+  final String stockStatus;
+  final int stock;
+  final double itemPrice;
 
-  GetItems({
-    this.shopId,
-    this.seqId,
-    this.shopName,
-    this.shopZipcode,
-    this.itemCode,
-    this.itemName,
-    this.itemDesc,
-    this.itemCategory,
-    this.itemSubCategory,
-    this.imageLoc,
-    this.stockStatus,
-    this.itemPrice,
+  ShopItem({
+    required this.shopId,
+    required this.seqId,
+    required this.shopName,
+    required this.shopZipcode,
+    required this.itemCode,
+    required this.itemName,
+    required this.itemDesc,
+    required this.itemCategory,
+    required this.itemSubCategory,
+    required this.imageLoc,
+    required this.stockStatus,
+    required this.stock,
+    required this.itemPrice,
   });
 
-  factory GetItems.fromJson(List<dynamic> json) {
-    return GetItems(
-      shopId: json[0]["shop_id"],
-      seqId: json[0]["seq_id"],
-      shopName: json[0]["shop_name"],
-      shopZipcode: json[0]["shop_zipcode"],
-      itemCode: json[0]["item_code"],
-      itemName: json[0]["item_name"],
-      itemDesc: json[0]["item_desc"],
-      itemCategory: json[0]["item_category"],
-      itemSubCategory: json[0]["item_sub_category"],
-      imageLoc: json[0]["image_loc"],
-      stockStatus: json[0]["stock_status"],
-      itemPrice: json[0]["item_price"]?.toDouble(),
+  factory ShopItem.fromJson(Map<String, dynamic> json) {
+    return ShopItem(
+      shopId: json['shop_id'],
+      seqId: json['seq_id'],
+      shopName: json['shop_name'],
+      shopZipcode: json['shop_zipcode'],
+      itemCode: json['item_code'],
+      itemName: json['item_name'],
+      itemDesc: json['item_desc'],
+      itemCategory: json['item_category'],
+      itemSubCategory: json['item_sub_category'],
+      imageLoc: json['image_loc'],
+      stockStatus: json['stock_status'],
+      stock: json['stock'],
+      itemPrice: json['item_price'].toDouble(),
     );
   }
-
-  Map<String, dynamic> toJson() => {
-    "shop_id": shopId,
-    "seq_id": seqId,
-    "shop_name": shopName,
-    "shop_zipcode": shopZipcode,
-    "item_code": itemCode,
-    "item_name": itemName,
-    "item_desc": itemDesc,
-    "item_category": itemCategory,
-    "item_sub_category": itemSubCategory,
-    "image_loc": imageLoc,
-    "stock_status": stockStatus,
-    "item_price": itemPrice,
-  };
 }
+
+class ShopItemList {
+  final List<ShopItem> items;
+
+  ShopItemList({required this.items});
+
+  factory ShopItemList.fromJson(List<dynamic> json) {
+    List<ShopItem> items = json.map((item) => ShopItem.fromJson(item)).toList();
+    return ShopItemList(items: items);
+  }
+}
+
+

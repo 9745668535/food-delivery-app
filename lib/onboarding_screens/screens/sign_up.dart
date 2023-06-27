@@ -6,6 +6,7 @@ import 'package:myfoodcart/resources/color_resource.dart';
 import 'package:myfoodcart/resources/style_resources.dart';
 import 'package:provider/provider.dart';
 
+import '../../dash_home/provider/getItemsProvider.dart';
 import '../../dashboard/screens/dashboard.dart';
 import '../../resources/drawable_resources.dart';
 import '../../utils/utils.dart';
@@ -244,6 +245,8 @@ class _SignUpState extends State<SignUp> {
                       ),
                       child:Text("Login",style: TextStyle(color: Colors.white),),
                       onPressed: (){
+                        // context.read<GetItemsProvider>().getItems(context);
+
                         if(nameController.text.isNotEmpty &&zipController.text.isNotEmpty && emailController.text.isNotEmpty && phoneController.text.isNotEmpty){
                           AddUserModel addusermodel = new AddUserModel();
                           addusermodel.firstname = nameController.text;

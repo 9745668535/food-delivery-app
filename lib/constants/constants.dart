@@ -1,4 +1,6 @@
 
+import 'dart:ffi';
+
 import 'package:easy_stepper/easy_stepper.dart';
 
 class Constants{
@@ -15,6 +17,6 @@ class Constants{
     return MediaQuery.of(context).size.width;
   }
   static final String IS_LOGGED_IN_PREF_KEY = "isLogedIn";
-  static final String shopid = "shop_id";
+  static   final String shopid = " " ;
 
 }

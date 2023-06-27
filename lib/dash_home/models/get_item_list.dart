@@ -1,22 +1,28 @@
 
 
+import 'dart:typed_data';
+
 class GetItemLiist {
   String? status;
   List<ShopDatum>? shopData;
 
+
   GetItemLiist({
     this.status,
     this.shopData,
+
   });
 
   factory GetItemLiist.fromJson(Map<String, dynamic> json) => GetItemLiist(
     status: json["Status"],
     shopData: List<ShopDatum>.from(json["shopData"].map((x) => ShopDatum.fromJson(x))),
+
   );
 
   Map<String, dynamic> toJson() => {
     "Status": status,
     "shopData": List<dynamic>.from(shopData!.map((x) => x.toJson())),
+
   };
 }
 
@@ -33,7 +39,12 @@ class ShopDatum {
   String? imageLoc;
   String? stockStatus;
   double? itemPrice;
-  int? noOfItem = 0;
+
+  Uint8List? img;
+
+  // int? addTap ;
+
+
 
   ShopDatum({
     this.shopId,
@@ -48,7 +59,10 @@ class ShopDatum {
     this.imageLoc,
     this.stockStatus,
     this.itemPrice,
-    this.noOfItem
+    this.img,
+    // this.addTap,
+
+
   });
 
   factory ShopDatum.fromJson(Map<String, dynamic> json) => ShopDatum(
@@ -64,7 +78,10 @@ class ShopDatum {
     imageLoc: json["image_loc"],
     stockStatus: json["stock_status"],
     itemPrice: json["item_price"].toDouble(),
-    noOfItem: json["noOfItem"].toDouble(),
+
+    // addTap: json["addTap"].toDouble(),
+
+
   );
 
   Map<String, dynamic> toJson() => {
@@ -80,6 +97,9 @@ class ShopDatum {
     "image_loc": imageLoc,
     "stock_status": stockStatus,
     "item_price": itemPrice,
-    "noOfItem": noOfItem,
+    // "addTap": addTap,
+
+
   };
 }
+
